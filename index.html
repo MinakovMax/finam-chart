@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Finam Chart</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Экран 1: токен Trade API -->
+  <section id="auth" class="panel">
+    <h1>Finam Chart</h1>
+    <p class="muted">График свечей по данным Finam Trade API. Токен уходит только на api.finam.ru, прямо из браузера.</p>
+    <form id="auth-form" autocomplete="off">
+      <label for="secret">API-токен Trade API (tapi_sk_…)</label>
+      <input id="secret" type="password" placeholder="tapi_sk_xxxxxxxxxxxxxxxxxxxx" required>
+      <label class="check"><input id="remember" type="checkbox"> запомнить в этом браузере</label>
+      <button id="auth-btn" type="submit">Подключиться</button>
+      <div id="auth-error" class="error" hidden></div>
+    </form>
+    <p class="muted small">Рекомендуется readonly-токен: расширению нужны только котировки и справочник.</p>
+  </section>
+
+  <!-- Экран 2: инструмент, таймфрейм, график -->
+  <section id="app" hidden>
+    <header class="toolbar">
+      <div class="search">
+        <input id="search" type="text" placeholder="Тикер, название или SBER@MISX" autocomplete="off" spellcheck="false">
+        <ul id="suggest" class="suggest" hidden></ul>
+      </div>
+      <select id="tf" title="Таймфрейм и глубина истории на сервере"></select>
+      <button id="refresh" type="button" title="Обновить">↻</button>
+      <label class="check small"><input id="auto" type="checkbox" checked> авто</label>
+      <button id="logout" type="button" class="ghost" title="Сменить токен">токен</button>
+    </header>
+
+    <div class="quote">
+      <span id="q-symbol" class="symbol">—</span>
+      <span id="q-name" class="muted"></span>
+      <span id="q-last" class="last"></span>
+      <span id="q-change" class="change"></span>
+      <span id="q-time" class="muted small"></span>
+    </div>
+
+    <div id="chart"></div>
+
+    <footer class="status">
+      <span id="status" class="muted small">Выберите инструмент</span>
+      <span class="muted small"><span id="catalog-status"></span> · <span id="mode"></span></span>
+    </footer>
+  </section>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
